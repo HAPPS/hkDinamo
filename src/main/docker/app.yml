@@ -1,0 +1,20 @@
+version: '2'
+services:
+    hkdinamo-app:
+        image: hkdinamo
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATA_MONGODB_URI=mongodb://hkdinamo-mongodb:27017
+            - SPRING_DATA_MONGODB_DATABASE=hkDinamo
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=hkdinamo-elasticsearch:9300
+        ports:
+            - 8080:8080
+    hkdinamo-mongodb:
+        extends:
+            file: mongodb.yml
+            service: hkdinamo-mongodb
+    hkdinamo-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: hkdinamo-elasticsearch
